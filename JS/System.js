@@ -6,7 +6,6 @@ var Template_Grid
 var Template = []
 var CHECKED = 0
 
-
 const PLAYER_MATRICE = [0, 0, 0,
     0, 0, 0,
     0, 0, 0
@@ -15,6 +14,7 @@ const ALGO_MATRICE = [0, 0, 0,
     0, 0, 0,
     0, 0, 0
 ]
+
 var Turn = Random(); /* 0 = Player | 1 = AI */
 function Color_Template(T, Color) {
     if (!Turn)
