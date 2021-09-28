@@ -1,5 +1,5 @@
 var Template_Grid
-var Template = Array()
+var Template = []
 var CHECKED = 0
 
 
