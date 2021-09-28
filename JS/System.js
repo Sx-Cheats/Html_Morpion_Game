@@ -64,7 +64,7 @@ function Random_Template() {
 async function Check_Turn(Template_Clicked) {
     if ((Template_Clicked.getAttribute('bin') == '1' || Turn) && CHECKED < 9) return
     Color_Template(Template_Clicked, 'rgb(0,255,0)')
-    await wait(0.5)
+    await wait(0.618)
     if (CHECKED < 9)
         Random_Template()
     let WONNER = CHECK_WINNER()
@@ -72,6 +72,7 @@ async function Check_Turn(Template_Clicked) {
         CHECKED = 10
         document.getElementsByClassName('WON')[0].innerHTML = WONNER
     }
+    await wait(0.25)
 }
 window.addEventListener('load', () => {
     Template_Grid = document.getElementsByClassName('BackGround')[0].getElementsByTagName('div');
