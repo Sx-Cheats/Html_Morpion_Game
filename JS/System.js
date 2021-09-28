@@ -1,3 +1,7 @@
+const Random = (N = 2) => Math.round(Math.random() * N)
+const Sum = (A, B) => A + B
+const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
+
 var Template_Grid
 var Template = []
 var CHECKED = 0
@@ -12,9 +16,7 @@ const ALGO_MATRICE = [0, 0, 0,
     0, 0, 0
 ]
 
-const Random = (N = 2) => Math.round(Math.random() * N)
-const Sum = (A, B) => A + B
-const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
+
 
 
 var Turn = Random(); /* 0 = Player | 1 = AI */
