@@ -15,10 +15,6 @@ const ALGO_MATRICE = [0, 0, 0,
     0, 0, 0,
     0, 0, 0
 ]
-
-
-
-
 var Turn = Random(); /* 0 = Player | 1 = AI */
 function Color_Template(T, Color) {
     if (!Turn)
@@ -33,7 +29,6 @@ function Color_Template(T, Color) {
     CHECKED++
     Turn = !Turn
 }
-
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
         if (!((Index ^ 2) * (Index ^ 5) * (Index ^ 8))) return [M[Index - 2], M[Index - 1], M[Index]]
@@ -41,7 +36,6 @@ function MATRICE1D_TO_3D(M) {
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
 }
-
 function CHECK_MATRICE(M) {
     console.log(M)
     if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * (((M[0][0] + M[1][0] + M[2][0]) ^ 3) * ((M[0][1] + M[1][1] + M[2][1]) ^ 3) * ((M[0][2] + M[1][2] + M[2][2]) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
@@ -49,14 +43,12 @@ function CHECK_MATRICE(M) {
     }
     return false
 }
-
 function CHECK_WINNER() {
     var PLAYER_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(PLAYER_MATRICE))
     var ALGO_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(ALGO_MATRICE))
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
-
 function Random_Template() {
     let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
     Color_Template(Randomed, 'rgb(255,0,0)')
