@@ -13,13 +13,27 @@ body {
     text-shadow: 1px 9px 6px rgb(8, 8, 8), 3px 0px 7px rgb(255, 255, 255, 0.7);
 }
 
+.BLURED_EFFECT {
+    position: absolute;
+    opacity: 0.9;
+    filter: blur(15px);
+    z-index: -1;
+    top: -40px;
+    left: -18px;
+    background-color: transparent;
+    border: rgb(98, 243, 212) 15px solid;
+    border-radius: 10px;
+    width: 103%;
+    height: 103%;
+}
+
 .BackGround {
     background-color: rgb(64, 183, 252, 0.3);
-    border-style: dashed;
     border-width: 5px;
     border-color: rgb(0, 69, 109);
     border-radius: 10px;
-    position: fixed; 
+    position: fixed;
+    filter: contrast(1.1) brightness(1.23);
     display: block;
     top: 200px;
     left: calc(50% - 200px);
@@ -28,7 +42,7 @@ body {
     box-shadow: 5px 7px 11px 6px rgba(7, 107, 92, 0.59);
     height: 350px;
     display: grid;
-    grid-template-rows: repeat(0, 129px);
+    grid-template-rows: repeat(0, 139px);
     grid-template-columns: repeat(3, 135px);
     animation: float 4s ease-in-out infinite;
 }
@@ -40,17 +54,13 @@ body {
 }
 
 .BackGround>div {
-    opacity: 0.6;
+    opacity: 0.9;
     border: none;
     z-index: 2;
+    filter: drop-shadow(-2px 16px 16px #034aa7) contrast(1.5);
     margin-left: 0px;
-    background-color: rgb(63, 63, 63);
     width: 135px;
     height: 118px;
-}
-
-.BackGround>div:hover {
-    opacity: 0.1;
 }
 
 .WON {
