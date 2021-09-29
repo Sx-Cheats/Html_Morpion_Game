@@ -1,14 +1,10 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
 const Sum = (A, B) => A + B
 const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
-
 var Template_Grid
 var Template = []
 var CHECKED = 0
-
-
 const COLOR_TEMPLATE = ['rgb(249, 249, 65 )', 'rgb(255,0,0)'] /* 1: PLAYER COLOR | 2: ALGO COLOR */
-
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
@@ -20,8 +16,6 @@ const MATRICE = [
     ] /*ALGO MATRICE*/
 
 ]
-
-
 var Turn = Random(); /* 0 = Player | 1 = AI */
 function Color_Template(T, Color) {
     if (!Turn)
@@ -36,7 +30,6 @@ function Color_Template(T, Color) {
     CHECKED++
     Turn = !Turn
 }
-
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
         if (!((Index ^ 2) * (Index ^ 5) * (Index ^ 8))) return [M[Index - 2], M[Index - 1], M[Index]]
@@ -44,7 +37,6 @@ function MATRICE1D_TO_3D(M) {
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
 }
-
 function CHECK_MATRICE(M) {
     console.log(M)
     if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * (((M[0][0] + M[1][0] + M[2][0]) ^ 3) * ((M[0][1] + M[1][1] + M[2][1]) ^ 3) * ((M[0][2] + M[1][2] + M[2][2]) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
@@ -52,7 +44,6 @@ function CHECK_MATRICE(M) {
     }
     return false
 }
-
 function CHECK_WINNER() {
     var PLAYER_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[0]))
     var ALGO_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[1]))
