@@ -2,9 +2,10 @@ const Random = (N = 2) => Math.round(Math.random() * N)
 const Sum = (A, B) => A + B
 const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 var Template_Grid
+var Turn = Random(); /* 0 = Player | 1 = AI */
 var Template = []
 var CHECKED = 0
-const COLOR_TEMPLATE = ['rgb(249, 249, 65 )', 'rgb(255,0,0)'] /* 1: PLAYER COLOR | 2: ALGO COLOR */
+const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 1: PLAYER COLOR | 2: ALGO COLOR */
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
@@ -16,7 +17,6 @@ const MATRICE = [
     ] /*ALGO MATRICE*/
 
 ]
-var Turn = Random(); /* 0 = Player | 1 = AI */
 function Color_Template(T, Color) {
     if (!Turn)
         MATRICE[0][T.getAttribute('Index')] = 1
@@ -50,9 +50,8 @@ function CHECK_WINNER() {
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
-
 function Random_Template() {
-    let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
+    let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length-1)])[0]
     Color_Template(Randomed, COLOR_TEMPLATE[1])
 }
 async function Check_Turn(Template_Clicked) {
