@@ -1,10 +1,14 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
 const Sum = (A, B) => A + B
 const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
+
 var Template_Grid
 var Template = []
 var CHECKED = 0
+
+
 const COLOR_TEMPLATE = ['rgb(249, 249, 65 )', 'rgb(255,0,0)'] /* 1: PLAYER COLOR | 2: ALGO COLOR */
+
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
@@ -14,8 +18,11 @@ const MATRICE = [
         0, 0, 0,
         0, 0, 0
     ] /*ALGO MATRICE*/
+
 ]
-var Turn = Random(); /* 0 = Player | 1 = ALGO */
+
+
+var Turn = Random(); /* 0 = Player | 1 = AI */
 function Color_Template(T, Color) {
     if (!Turn)
         MATRICE[0][T.getAttribute('Index')] = 1
@@ -58,7 +65,7 @@ function Random_Template() {
     Color_Template(Randomed, COLOR_TEMPLATE[1])
 }
 async function Check_Turn(Template_Clicked) {
-    if ((Template_Clicked.getAttribute('bin') == '1' || Turn) && CHECKED < 9) return
+    if ((Template_Clicked.getAttribute('bin') == '1' || Turn) || CHECKED > 9) return
     Color_Template(Template_Clicked, COLOR_TEMPLATE[0])
     await wait(0.618)
     if (CHECKED < 9)
