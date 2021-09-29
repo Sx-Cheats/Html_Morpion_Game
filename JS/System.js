@@ -82,7 +82,7 @@ window.addEventListener('load', () => {
         Template.push(OBJ.className);
         OBJ.addEventListener('click', () => Check_Turn(OBJ))
         OBJ.addEventListener('mouseover', () => (!parseInt(OBJ.getAttribute('bin'))) ? OBJ.style.opacity = 0.65 : false)
-        OBJ.addEventListener('mouseleave', () => OBJ.style.opacity = 0.9)
+        OBJ.addEventListener('mouseleave', () => OBJ.style.opacity = 1)
     })
     if (Turn) Random_Template()
 })
