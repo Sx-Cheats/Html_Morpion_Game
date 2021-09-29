@@ -36,6 +36,7 @@ function Color_Template(T) {
     CHECKED++
     Turn = !Turn
 }
+
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
         if (!((Index ^ 2) * (Index ^ 5) * (Index ^ 8))) return [M[Index - 2], M[Index - 1], M[Index]]
@@ -50,12 +51,14 @@ function CHECK_MATRICE(M) {
     }
     return false
 }
+
 function CHECK_WINNER() {
     var PLAYER_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[0]))
     var ALGO_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[1]))
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
+
 function Random_Template() {
     let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
     Color_Template(Randomed)
