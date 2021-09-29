@@ -1,8 +1,9 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
 const Sum = (A, B) => A + B
+const CALC_COLUNM = (matrice, r = 0) => { let sum = 0; return matrice.map(VALUE => { sum += VALUE[r]; return sum })[2]; }
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 var Template_Grid
-var Turn = Random(); /* 0 = Player | 1 = AI */
+var Turn = Random(); /* 0 = Player | 1 = ALGO */
 var Template = []
 var CHECKED = 0
 const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
@@ -46,7 +47,7 @@ function MATRICE1D_TO_3D(M) {
 }
 
 function CHECK_MATRICE(M) {
-    if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * (((M[0][0] + M[1][0] + M[2][0]) ^ 3) * ((M[0][1] + M[1][1] + M[2][1]) ^ 3) * ((M[0][2] + M[1][2] + M[2][2]) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
+    if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * ((CALC_COLUNM(M) ^ 3) * (CALC_COLUNM(M, 1) ^ 3) * (CALC_COLUNM(M, 2) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
         return true
     }
     return false
@@ -74,7 +75,7 @@ async function Check_Turn(Template_Clicked) {
         CHECKED = 10
         document.getElementsByClassName('WON')[0].innerHTML = WONNER
     }
-    await wait(0.25)
+    await wait(1.67 - random(2))
 }
 window.addEventListener('load', () => {
     Template_Grid = document.getElementsByClassName('BackGround')[0].getElementsByTagName('div');
