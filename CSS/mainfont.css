@@ -54,7 +54,6 @@ body {
 }
 
 .BackGround>div {
-    opacity: 0.9;
     border: none;
     z-index: 2;
     filter: drop-shadow(-2px 16px 16px #034aa7) contrast(1.5);
