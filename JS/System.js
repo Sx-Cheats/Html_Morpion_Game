@@ -1,6 +1,6 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
 const Sum = (A, B) => A + B
-const wait = async(sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
+const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 var Template_Grid
 var Turn = Random(); /* 0 = Player | 1 = AI */
 var Template = []
@@ -18,10 +18,14 @@ const MATRICE = [
 
 ]
 function Color_Template(T, Color) {
-    if (!Turn)
+    if (!Turn) {
         MATRICE[0][T.getAttribute('Index')] = 1
-    else
+        T.title = "PLAYER"
+    } else {
         MATRICE[1][T.getAttribute('Index')] = 1
+        T.title = "ALGO"
+    }
+
 
     T.style.backgroundColor = Color
         /*T.removeEventListener("click", Check_Turn)*/
@@ -49,8 +53,9 @@ function CHECK_WINNER() {
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
+
 function Random_Template() {
-    let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length-1)])[0]
+    let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
     Color_Template(Randomed, COLOR_TEMPLATE[1])
 }
 async function Check_Turn(Template_Clicked) {
@@ -70,6 +75,7 @@ window.addEventListener('load', () => {
     Template_Grid = document.getElementsByClassName('BackGround')[0].getElementsByTagName('div');
     Array.from(Template_Grid).forEach((OBJ, IDX) => {
         OBJ.setAttribute('bin', 0);
+        OBJ.title = 'NULL'
         OBJ.setAttribute('Index', IDX);
         Template.push(OBJ.className);
         OBJ.addEventListener('click', () => Check_Turn(OBJ))
