@@ -5,7 +5,7 @@ var Template_Grid
 var Turn = Random(); /* 0 = Player | 1 = AI */
 var Template = []
 var CHECKED = 0
-const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 1: PLAYER COLOR | 2: ALGO COLOR */
+const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
@@ -17,19 +17,21 @@ const MATRICE = [
     ] /*ALGO MATRICE*/
 
 ]
-function Color_Template(T, Color) {
+
+function Color_Template(T) {
+    T.setAttribute('bin', 1)
     if (!Turn) {
         MATRICE[0][T.getAttribute('Index')] = 1
+        T.style.backgroundColor = COLOR_TEMPLATE[0]
+        T.style.filter = `brightness(0.94) drop-shadow(16px 16px 20px ${COLOR_TEMPLATE[0]})`
         T.title = "PLAYER"
     } else {
         MATRICE[1][T.getAttribute('Index')] = 1
+        T.style.backgroundColor = COLOR_TEMPLATE[1]
+        T.style.filter = `brightness(0.94) drop-shadow(16px 16px 20px ${COLOR_TEMPLATE[1]})`
         T.title = "ALGO"
     }
-
-
-    T.style.backgroundColor = Color
-        /*T.removeEventListener("click", Check_Turn)*/
-    T.setAttribute('bin', 1)
+    T.style.opacity = 1
     this.Template.splice(this.Template.indexOf(T.className), 1)
     CHECKED++
     Turn = !Turn
@@ -41,6 +43,7 @@ function MATRICE1D_TO_3D(M) {
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
 }
+
 function CHECK_MATRICE(M) {
     if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * (((M[0][0] + M[1][0] + M[2][0]) ^ 3) * ((M[0][1] + M[1][1] + M[2][1]) ^ 3) * ((M[0][2] + M[1][2] + M[2][2]) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
         return true
@@ -53,14 +56,13 @@ function CHECK_WINNER() {
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
-
 function Random_Template() {
     let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
-    Color_Template(Randomed, COLOR_TEMPLATE[1])
+    Color_Template(Randomed)
 }
 async function Check_Turn(Template_Clicked) {
     if ((Template_Clicked.getAttribute('bin') == '1' || Turn) || CHECKED > 9) return
-    Color_Template(Template_Clicked, COLOR_TEMPLATE[0])
+    Color_Template(Template_Clicked)
     await wait(0.618)
     if (CHECKED < 9)
         Random_Template()
@@ -75,10 +77,12 @@ window.addEventListener('load', () => {
     Template_Grid = document.getElementsByClassName('BackGround')[0].getElementsByTagName('div');
     Array.from(Template_Grid).forEach((OBJ, IDX) => {
         OBJ.setAttribute('bin', 0);
-        OBJ.title = 'NULL'
+        OBJ.style.backgroundColor = 'rgb(0, 66, 75, 1)'
         OBJ.setAttribute('Index', IDX);
         Template.push(OBJ.className);
         OBJ.addEventListener('click', () => Check_Turn(OBJ))
+        OBJ.addEventListener('mouseover', () => (!parseInt(OBJ.getAttribute('bin'))) ? OBJ.style.opacity = 0.65 : false)
+        OBJ.addEventListener('mouseleave', () => OBJ.style.opacity = 0.9)
     })
     if (Turn) Random_Template()
 })
