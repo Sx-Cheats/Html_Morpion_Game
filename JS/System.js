@@ -1,24 +1,37 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
-const Sum = (A, B) => A + B
-const CALC_COLUNM = (matrice, r = 0) => { let sum = 0; return matrice.map(VALUE => { sum += VALUE[r]; return sum })[2]; }
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
+const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
+const Sum = (A, B) => A + B
+    /*const clamp = (num, max, min = 0) => Math.max(Math.min(num, max), min)*/
+const CALC_COLUNM = (matrice) => {
+    let sum = 1;
+    matrice[0].forEach((VALUE, IDX) => {
+        (!((matrice[0][IDX] + matrice[1][IDX] + matrice[2][IDX]) ^ 3) ? sum = 0 : 1)
+
+    });
+    return sum
+}
+const CALC_ROW = (matrice) => {
+    let f = 1;
+    matrice.forEach((VALUE) => VALUE.forEach((V, I) => {!(VALUE.reduce(Sum) ^ 3) && V ? f = 0 : false }))
+    return f
+
+}
 var Template_Grid
 var Turn = Random(); /* 0 = Player | 1 = ALGO */
 var Template = []
 var CHECKED = 0
-const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
-        0, 0, 0
+        0, 0, 0,
     ], /*PLAYER MATRICE*/
     [0, 0, 0,
         0, 0, 0,
-        0, 0, 0
+        0, 0, 0,
     ] /*ALGO MATRICE*/
 
 ]
-
 function Color_Template(T) {
     T.setAttribute('bin', 1)
     if (!Turn) {
@@ -37,29 +50,26 @@ function Color_Template(T) {
     CHECKED++
     Turn = !Turn
 }
-
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
-        if (!((Index ^ 2) * (Index ^ 5) * (Index ^ 8))) return [M[Index - 2], M[Index - 1], M[Index]]
+        if (!((Index + 1) % 3)) return [M[Index - 2], M[Index - 1], M[Index]]
 
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
 }
-
 function CHECK_MATRICE(M) {
-    if (!(((M[0].reduce(Sum) ^ 3) * (M[1].reduce(Sum) ^ 3) * (M[2].reduce(Sum) ^ 3)) * ((CALC_COLUNM(M) ^ 3) * (CALC_COLUNM(M, 1) ^ 3) * (CALC_COLUNM(M, 2) ^ 3)) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
+    if (!(CALC_ROW(M) * CALC_COLUNM(M) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {
         return true
     }
     return false
 }
 
 function CHECK_WINNER() {
-    var PLAYER_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[0]))
+    var PLAYER_MATRICE_3D = (MATRICE1D_TO_3D(MATRICE[0]))
     var ALGO_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[1]))
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
 }
-
 function Random_Template() {
     let Randomed = document.getElementsByClassName(this.Template[Random(this.Template.length - 1)])[0]
     Color_Template(Randomed)
@@ -75,7 +85,7 @@ async function Check_Turn(Template_Clicked) {
         CHECKED = 10
         document.getElementsByClassName('WON')[0].innerHTML = WONNER
     }
-    await wait(1.67 - random(2))
+    await wait(1.67 - Random(2))
 }
 window.addEventListener('load', () => {
     Template_Grid = document.getElementsByClassName('BackGround')[0].getElementsByTagName('div');
