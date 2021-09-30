@@ -1,3 +1,6 @@
+
+// BEFORE
+
 /*const Random = (N = 2) => Math.round(Math.random() * N)
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] // 0: PLAYER COLOR | 1: ALGO COLOR 
