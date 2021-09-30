@@ -1,8 +1,7 @@
 const Random = (N = 2) => Math.round(Math.random() * N)
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
-const Sum = (A, B) => A + B
-    /*const clamp = (num, max, min = 0) => Math.max(Math.min(num, max), min)*/
+const Sum = (A, B) => A + B/*const clamp = (num, max, min = 0) => Math.max(Math.min(num, max), min)*/
 const CALC_COLUNM = (matrice) => {let sum = 1;matrice[0].forEach((VALUE, IDX) => {(!((matrice[0][IDX] + matrice[1][IDX] + matrice[2][IDX]) ^ 3) ? sum = 0 : 1)});return sum}
 const CALC_ROW = (matrice) => {let f = 1;matrice.forEach((VALUE) => VALUE.forEach((V, I) => {!(VALUE.reduce(Sum) ^ 3) ? f = 0 : false }));return f}
 const MATRICE = [[0, 0, 0,0, 0, 0,0, 0, 0,], /*PLAYER MATRICE*/[0, 0, 0,0, 0, 0,0, 0, 0,] /*ALGO MATRICE*/]
