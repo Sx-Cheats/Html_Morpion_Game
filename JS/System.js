@@ -40,7 +40,7 @@ function Color_Template(T) {
 }
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
-        if (!((Index + 1) % Math.sqrt(M.length))) return [M[Index - 2], M[Index - 1], M[Index]]
+        if (!((Index + 1) % Math.sqrt(M.length))) return [M[Index - 2], M[Index - 1], Value]
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
 }
