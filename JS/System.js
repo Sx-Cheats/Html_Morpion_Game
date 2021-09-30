@@ -2,7 +2,7 @@ const Random = (N = 2) => Math.round(Math.random() * N)
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
 const COLOR_TEMPLATE = [`rgb(${Random(255)}, ${Random(255)}, ${Random(255)} )`, `rgb(${Random(255)},${Random(255)},${Random(255)})`] /* 0: PLAYER COLOR | 1: ALGO COLOR */
 const Sum = (A, B) => A + B
-    /*const clamp = (num, max, min = 0) => Math.max(Math.min(num, max), min)*/
+/*const clamp = (num, max, min = 0) => Math.max(Math.min(num, max), min)*/
 const CALC_COLUNM = (matrice) => {
     let sum = 1;
     matrice[0].forEach((VALUE, IDX) => {
@@ -17,10 +17,6 @@ const CALC_ROW = (matrice) => {
     return f
 
 }
-var Template_Grid
-var Turn = Random(); /* 0 = Player | 1 = ALGO */
-var Template = []
-var CHECKED = 0
 const MATRICE = [
     [0, 0, 0,
         0, 0, 0,
@@ -32,6 +28,10 @@ const MATRICE = [
     ] /*ALGO MATRICE*/
 
 ]
+var Template_Grid
+var Turn = Random(); /* 0 = Player | 1 = ALGO */
+var Template = []
+var CHECKED = 0
 function Color_Template(T) {
     T.setAttribute('bin', 1)
     if (!Turn) {
@@ -52,7 +52,7 @@ function Color_Template(T) {
 }
 function MATRICE1D_TO_3D(M) {
     return M.map((Value, Index) => {
-        if (!((Index + 1) % 3)) return [M[Index - 2], M[Index - 1], M[Index]]
+        if (!((Index + 1) % Math.sqrt(M.length))) return [M[Index - 2], M[Index - 1], M[Index]]
 
     }).filter(VALUE => VALUE != undefined ? VALUE : false)
 
@@ -63,9 +63,8 @@ function CHECK_MATRICE(M) {
     }
     return false
 }
-
 function CHECK_WINNER() {
-    var PLAYER_MATRICE_3D = (MATRICE1D_TO_3D(MATRICE[0]))
+    var PLAYER_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[0]))
     var ALGO_MATRICE_3D = CHECK_MATRICE(MATRICE1D_TO_3D(MATRICE[1]))
     return PLAYER_MATRICE_3D ? "PLAYER WON !" : ALGO_MATRICE_3D ? "ALGO WON !" : CHECKED >= 9 ? "EGALITY" : false
 
