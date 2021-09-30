@@ -5,10 +5,7 @@ const Sum = (A, B) => A + B/*const clamp = (num, max, min = 0) => Math.max(Math.
 const CALC_COLUNM = (matrice) => {let sum = 1;matrice[0].forEach((VALUE, IDX) => {(!((matrice[0][IDX] + matrice[1][IDX] + matrice[2][IDX]) ^ 3) ? sum = 0 : 1)});return sum}
 const CALC_ROW = (matrice) => {let f = 1;matrice.forEach((VALUE) => VALUE.forEach((V, I) => {!(VALUE.reduce(Sum) ^ 3) ? f = 0 : false }));return f}
 const MATRICE = [[0, 0, 0,0, 0, 0,0, 0, 0,], /*PLAYER MATRICE*/[0, 0, 0,0, 0, 0,0, 0, 0,] /*ALGO MATRICE*/]
-var Template_Grid
-var Turn = Random(); /* 0 = Player | 1 = ALGO */
-var Template = []
-var CHECKED = 0
+var Template_Grid;var Turn = Random(); /* 0 = Player | 1 = ALGO */;var Template = [];var CHECKED = 0
 function Color_Template(T) {T.setAttribute('bin', 1);if (!Turn) {MATRICE[0][T.getAttribute('Index')] = 1;T.style.backgroundColor = COLOR_TEMPLATE[0];T.style.filter = `brightness(0.94) drop-shadow(16px 16px 20px ${COLOR_TEMPLATE[0]})`;T.title = "PLAYER"} else {MATRICE[1][T.getAttribute('Index')] = 1;T.style.backgroundColor = COLOR_TEMPLATE[1];T.style.filter = `brightness(0.94) drop-shadow(16px 16px 20px ${COLOR_TEMPLATE[1]})`;T.title = "ALGO"};T.style.opacity = 1;this.Template.splice(this.Template.indexOf(T.className), 1);CHECKED++;Turn = !Turn};
 function MATRICE1D_TO_3D(M) {return M.map((Value, Index) => {if (!((Index + 1) % Math.sqrt(M.length))) return [M[Index - 2], M[Index - 1], Value]}).filter(VALUE => VALUE != undefined ? VALUE : false)}
 function CHECK_MATRICE(M) {if (!(CALC_ROW(M) * CALC_COLUNM(M) * ((M[0][0] + M[1][1] + M[2][2]) ^ 3) * ((M[0][2] + M[1][1] + M[2][0]) ^ 3))) {return true}return false}
