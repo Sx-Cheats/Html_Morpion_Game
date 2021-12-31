@@ -1,5 +1,4 @@
 
-// SOURCE BY : $x-Cheats#9633
 
 /*const Random = (N = 2) => Math.round(Math.random() * N)
 const wait = (sleep = 1) => new Promise(resolve => setTimeout(resolve, sleep * 1e3))
